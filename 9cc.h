@@ -8,6 +8,7 @@
 // トークンの種類
 typedef enum {
   TK_RESERVED, // 記号
+  TK_IDENT,    // 識別子
   TK_NUM,      // 整数トークン
   TK_EOF,      // 入力の終わりを表すトークン
 } TokenKind;
@@ -29,11 +30,14 @@ Token *token;
 // 入力プログラム
 char *user_input;
 
+void error(char *fmt, ...);
 void error_at(char *loc, char *fmt, ...);
 bool consume(char *op);
 void expect(char *op);
 int expect_number();
+Token *consume_ident();
 Token *tokenize(void);
+bool at_eof();
 extern char *user_input;
 extern Token *token;
 
@@ -48,6 +52,8 @@ typedef enum {
   ND_NE, // !=
   ND_LT, // <
   ND_LE, // <=
+  ND_ASSIGN, // =
+  ND_LVAR,   // ローカル変数
 } NodeKind;
 
 typedef struct Node Node;
@@ -55,15 +61,18 @@ typedef struct Node Node;
 // 抽象構文木のノードの型
 struct Node {
   NodeKind kind; // ノードの型
+  Node *next;    // 次のノード
   Node *lhs;     // 左辺
   Node *rhs;     // 右辺
   int val;       // kindがND_NUMの場合のみ使う
+  int offset;    // kindがND_LVARの場合のみ使う
 };
 
-Node *expr(void);
+void program();
+Node *code[100];
 
 //
 //codegen.c
 //
 
-void codegen(Node *node);
+void codegen();
