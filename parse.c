@@ -16,6 +16,14 @@ Node *new_node_num(int val) {
   return node;
 }
 
+// 変数を名前で検索する。見つからなかった場合はNULLを返す。
+LVar *find_lvar(Token *tok) {
+  for (LVar *var = locals; var; var = var->next)
+    if (var->len == tok->len && !memcmp(tok->str, var->name, var->len))
+      return var;
+  return NULL;
+}
+
 //パーサ
 Node *expr();
 Node *mul();
@@ -110,7 +118,8 @@ Node *primary() {
     expect(")");
     return node;
   }
-
+  
+  //ローカル変数
   Token *tok = consume_ident();
   if (tok) {
     Node *node = calloc(1, sizeof(Node));

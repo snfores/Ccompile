@@ -41,6 +41,19 @@ bool at_eof();
 extern char *user_input;
 extern Token *token;
 
+typedef struct LVar LVar;
+
+// ローカル変数の型
+struct LVar {
+  LVar *next; // 次の変数かNULL
+  char *name; // 変数の名前
+  int len;    // 名前の長さ
+  int offset; // RBPからのオフセット
+};
+
+// ローカル変数
+LVar *locals;
+
 // 抽象構文木のノードの種類
 typedef enum {
   ND_ADD, // +

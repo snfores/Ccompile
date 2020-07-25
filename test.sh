@@ -41,5 +41,8 @@ assert 0 '1<=0;'
 assert 1 '0<=0;'
 assert 1 '0<=1;'
 assert 5 'a=2;a+3;'
+assert 10 'foo = 7; foo+3;'
+assert 13 'bar = 10;foo = 3;foo+bar;'
+assert 100 'fffff = 10; abcd = 3; ieoeeeeeee=30; dfsd = abcd*ieoeeeeeee;fffff+dfsd;'
 
 echo OK
