@@ -24,6 +24,14 @@ static void store(void) {
 
 //スタックマシンのエミュレート
 static void gen(Node *node) {
+    if (node->kind == ND_RETURN) {
+    gen(node->lhs);
+    printf("  pop rax\n");
+    printf("  mov rsp, rbp\n");
+    printf("  pop rbp\n");
+    printf("  ret\n");
+    return;
+  }
   switch (node->kind) {
   case ND_NUM:
     printf("  push %d\n", node->val);

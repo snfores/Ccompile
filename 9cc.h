@@ -11,6 +11,7 @@ typedef enum {
   TK_IDENT,    // 識別子
   TK_NUM,      // 整数トークン
   TK_EOF,      // 入力の終わりを表すトークン
+  TK_RETURN    // 返り値を求めるトークン
 } TokenKind;
 
 typedef struct Token Token;
@@ -56,17 +57,18 @@ LVar *locals;
 
 // 抽象構文木のノードの種類
 typedef enum {
-  ND_ADD, // +
-  ND_SUB, // -
-  ND_MUL, // *
-  ND_DIV, // /
-  ND_NUM, // 整数
-  ND_EQ, // ==
-  ND_NE, // !=
-  ND_LT, // <
-  ND_LE, // <=
-  ND_ASSIGN, // =
-  ND_LVAR,   // ローカル変数
+  ND_ADD,     // +
+  ND_SUB,     // -
+  ND_MUL,     // *
+  ND_DIV,     // /
+  ND_NUM,     // 整数
+  ND_EQ,      // ==
+  ND_NE,      // !=
+  ND_LT,      // <
+  ND_LE,      // <=
+  ND_ASSIGN,  // =
+  ND_LVAR,    // ローカル変数
+  ND_RETURN,  // return
 } NodeKind;
 
 typedef struct Node Node;
